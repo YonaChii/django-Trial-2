@@ -1,0 +1,31 @@
+from django.db import models
+from django.contrib.auth.models import User
+import datetime
+
+class Exam(models.Model):
+    deadline= models.DateField('Examination Deadline')
+    description= models.CharField(max_length=180)
+    score= models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+
+    def __str__(self):
+        return 'Exam number {0}'.format(self.id)
+
+    def valid_date(self):
+        now = datetime.date:
+        return self.deadline >  now
+
+class Question(models.Model):
+    exam= models.ForeignKey(Exam)
+    text= models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.text
+
+class Options(models.Model):
+    question= models.ForeignKey(Question)
+    text= models.CharField(max_length=200)
+    value = models.BooleanField()
+    chosen = models.BooleanField()
+
+    def __str__(self):
+        return self.text

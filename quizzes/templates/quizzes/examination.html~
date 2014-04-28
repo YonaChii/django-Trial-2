@@ -1,0 +1,22 @@
+<title>{{ exam }}</title>
+<h2> {{ exam.description }}... </h2>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'quizzes:answer' exam.id %}" method="post">
+{% csrf_token %}
+{% for question in exam.question_set.all %}
+  <li> {{ question.text }} </li>
+  <ul>
+  {% for option in question.options_set.all %}
+    <input type="radio" name="choice" id="options{{ forloop.counter }}" value="{{ options.id }}" />
+    <label for="options{{ forloop.counter }}">{{ option.text }} </label></br>
+  {% endfor %}
+  </ul>
+  </br>
+{% endfor %}
+<input type="submit" value="Submit answers" />
+</form>
+
+
+

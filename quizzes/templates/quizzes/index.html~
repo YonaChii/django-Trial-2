@@ -1,0 +1,12 @@
+<title> Exam List | </title>
+<h1> Exam List </h1>
+{% if exam_list %}
+    <ul>
+    {% for exam in exam_list %}
+        <li>{{ exam }} --- <a href="/quizzes/{{ exam.id }}/">{{ exam.description }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exams are available.</p>
+{% endif %}
+
